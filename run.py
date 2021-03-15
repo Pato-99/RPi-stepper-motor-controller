@@ -1,60 +1,57 @@
 #!/usr/bin/python3
 
-import sys
-from motor import *
+from sys import argv
+import RPi.GPIO as GP
+import time
+from motor import M_28BYJ_48 as MOTOR
 
 motor_pins = [11, 13, 15, 16]
-gp.setmode(gp.BOARD)
+GP.setmode(GP.BOARD)
 
-motor = Motor(motor_pins)
+motor = MOTOR(motor_pins)
 
-
-if len(sys.argv) == 2:
-    motor.set_speed_dps(int(sys.argv[1]))
-
-
+if len(argv) == 2:
+    motor.set_speed_dps(int(argv[1]))
 
 # --- interface for button control ---
-gp.setup(36, gp.IN)
-gp.setup(38, gp.IN)
-gp.setup(40, gp.IN)
+GP.setup(36, GP.IN)
+GP.setup(38, GP.IN)
+GP.setup(40, GP.IN)
 
 try:
     starting_step = 0
     last_direction = 1
     while True:
-        if gp.input(36) and gp.input(38):
+        if GP.input(36) and GP.input(38):
             time.sleep(0.5)
             while True:
-                if gp.input(36):
+                if GP.input(36):
                     motor.relase_pins()
                     time.sleep(0.5)
                     break
                 motor.turn_steps(-1)
 
-        if gp.input(36) and gp.input(40):
+        if GP.input(36) and GP.input(40):
             time.sleep(0.5)
             while True:
-                if gp.input(36):
+                if GP.input(36):
                     motor.relase_pins()
                     time.sleep(0.5)
                     break
                 motor.turn_steps(1)
 
-        if gp.input(38):
+        if GP.input(38):
             motor.turn_steps(-1)
             last_direction = -1
 
-        if gp.input(40):
+        if GP.input(40):
             motor.turn_steps(1)
             last_direction = 1
 
-        if not gp.input(38) and not gp.input(40):
+        if not GP.input(38) and not GP.input(40):
             motor.relase_pins()
 
 
 except KeyboardInterrupt:
     motor.set_speed_dps(90)
-    gp.cleanup([36, 38, 40])
-
-
+    GP.cleanup([36, 38, 40])
