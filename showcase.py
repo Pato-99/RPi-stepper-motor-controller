@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 import RPi.GPIO as GP
-from M_28BYJ48 import M28BYJ48 as MOTOR
+from stepper.motors.M_28BYJ48 import M28BYJ48 as MOTOR
 import time
 
 
