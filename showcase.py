@@ -84,7 +84,12 @@ if __name__ == "__main__":
     gp.setmode(gp.BOARD)
     motor = Motor(motor_pins)
 
-    showcase(motor)
-    motor.reset(vebrose=True)
+    try:
+        showcase(motor)
+        motor.reset(vebrose=True)
+    except KeyboardInterrupt:
+        motor.cleanup()
+        exit(1)
+
     motor.cleanup()
 
