@@ -15,15 +15,15 @@ class M28BYJ48(Motor):
     _DEFAULT_DELAY = 1 / 512  # default delay to match default speed
 
     # 1/8 of a turn half-steps
-    N_SEQUENCE = 8
-    SEQUENCE = ((1, 0, 0, 0),
-                (1, 1, 0, 0),
-                (0, 1, 0, 0),
-                (0, 1, 1, 0),
-                (0, 0, 1, 0),
-                (0, 0, 1, 1),
-                (0, 0, 0, 1),
-                (1, 0, 0, 1))
+    _N_SEQUENCE = 8
+    _SEQUENCE = ((1, 0, 0, 0),
+                 (1, 1, 0, 0),
+                 (0, 1, 0, 0),
+                 (0, 1, 1, 0),
+                 (0, 0, 1, 0),
+                 (0, 0, 1, 1),
+                 (0, 0, 0, 1),
+                 (1, 0, 0, 1))
 
     def __init__(self, mtr_pins, pos_file=''):
         super().__init__(mtr_pins, pos_file)

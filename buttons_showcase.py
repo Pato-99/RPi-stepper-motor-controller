@@ -49,7 +49,7 @@ try:
             last_direction = 1
 
         if not GP.input(38) and not GP.input(40):
-            motor.relase_pins()
+            motor.release_pins()
 
 
 except KeyboardInterrupt:
