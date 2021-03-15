@@ -25,13 +25,13 @@ def show_backing(motor):
 
 def show_acceleration(motor):
     for i in range(4, 12):
-        motor.turn_angle(3 * i, i * 10, vebrose=True)
+        motor.turn_angle(3 * i, i * 10)
     for i in range(11, 4, -1):
         motor.turn_angle(3 * i, i * 10)
 
 def show_acceleration2(motor):
     for i in range(10, 120):
-        motor.turn_angle(i / 10, i)
+        motor.turn_angle(i / 10, i, vebrose=True)
     for i in range(120, 10, -1):
         motor.turn_angle(i / 10, i)
 
