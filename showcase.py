@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 import RPi.GPIO as GP
-from motor import M28BYJ48 as MOTOR
+from M_28BYJ48 import M28BYJ48 as MOTOR
 import time
 
 
@@ -95,7 +95,7 @@ if __name__ == "__main__":
 
     try:
         showcase(motor)
-        motor.reset(vebrose=True)
+        motor.reset(verbose=True)
     except KeyboardInterrupt:
         motor.reset(dps=120)
         motor.cleanup()
