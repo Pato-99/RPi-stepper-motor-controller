@@ -179,7 +179,7 @@ class M_28BYJ_48:
         return deg / 360 * 4096
 
     @staticmethod
-    def _steps_to_degrees(self, steps):
+    def _steps_to_degrees(steps):
         return steps / 4096 * 360
 
     def set_speed_dps(self, speed):
