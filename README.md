@@ -108,7 +108,14 @@ Saves absolute position to file if some was specified and clears the pins
 * Use at the end of the script or when you do not plan to use the motor again
     
 ### Plans for future
+
 * Add support for Nema 17 with A4988 driver
-* Introdouce acceleration methods
+* Introduce acceleration methods
 * Add support for radians
-* One day maybe universal package for controlling stepper motors...
+* One day, maybe universal package for controlling stepper motors...
+
+
+### Notes
+
+Rotation speed is always a bit lower than specified probably due to processor speed.
+It can vary on different RPi versions.
