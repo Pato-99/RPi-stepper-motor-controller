@@ -26,7 +26,7 @@ try:
             time.sleep(0.5)
             while True:
                 if GP.input(36):
-                    motor.relase_pins()
+                    motor.release_pins()
                     time.sleep(0.5)
                     break
                 motor.turn_steps(-1)
@@ -35,7 +35,7 @@ try:
             time.sleep(0.5)
             while True:
                 if GP.input(36):
-                    motor.relase_pins()
+                    motor.release_pins()
                     time.sleep(0.5)
                     break
                 motor.turn_steps(1)
