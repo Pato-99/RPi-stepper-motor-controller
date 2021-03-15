@@ -106,3 +106,4 @@ Saves absolute position to file if some was specified and clears the pins
 * Add support for Nema 17 with A4988 driver
 * Introdouce acceleration methods
 * Add support for radians
+* One day maybe complex package for controlling stepper motors...
