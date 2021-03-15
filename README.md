@@ -6,17 +6,17 @@ Support for more motors and drivers will come in future...
 
 ### Contents
 * [Usage](#usage)
-* [Interface of 28BYJ-48](#interface-of-28byj-48-28byj-48)
-* [Plans for future](#plans-for-future-future)
+* [Interface of 28BYJ-48](#interface-of-28byj-48)
+* [Plans for future](#plans-for-future)
 
-### Usage {#usage}
+### Usage
 
 1. Place **motor.py** file in directory with script.
 2. At the start of the script insert `from motor import [motor you want to work with] as motor`
    * motor classes currently available: **28BYJ_48**
 
 
-### Interface of 28BYJ-48 {#28BYJ-48}
+### Interface of 28BYJ-48
 
 ```python
 __init__(self, motor_pins, pos_file='')
@@ -107,7 +107,7 @@ Saves absolute position to file if some was specified and clears the pins
 
 * Use at the end of the script or when you do not plan to use the motor again
     
-### Plans for future {#future}
+### Plans for future
 * Add support for Nema 17 with A4988 driver
 * Introdouce acceleration methods
 * Add support for radians
