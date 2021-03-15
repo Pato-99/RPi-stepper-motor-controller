@@ -1,12 +1,47 @@
 #!/usr/bin/python3
 
-import RPi.GPIO as gp
+import RPi.GPIO as GP
 import time
 import numpy as np
 import sys
 
 
 class Motor:
+    def __init__(self, mtr_pins, pos_file=''):
+        # setting up pins
+        self._motor_pins = mtr_pins
+        for pin in self._motor_pins:
+            GP.setup(pin, GP.OUT)
+            GP.output(pin, 0)
+
+        # initializing positions
+        self._pos_relative = 0
+        self._pos_angle_relative = 0
+        self._pos_absolute = 0
+        self._pos_angle_absolute = 0
+
+        # try to load absolute position
+        self.pos_file = pos_file
+        if pos_file:
+            try:
+                with open(pos_file, "r") as rot:
+                    self._pos_absolute = int(rot.read())
+                self._pos_angle_absolute = self._steps_to_degrees(self._pos_absolute)
+            except FileNotFoundError as e:
+                print(e)
+                motor.cleanup()
+                exit(1)
+
+        # diff counter for turning in angles
+        self._STEP_DIFF = 0
+
+        self._delay = 0
+        self._sps = 0
+        self._dps = 0
+
+    def __str__(self):
+        return f"Absolute position: {self._pos_angle_absolute} deg\nRelative position: {self._pos_angle_relative} deg"
+
     # Sets current position as initial
     def set_default_position(self):
         self._pos_absolute = 0
@@ -32,9 +67,29 @@ class Motor:
         self._delay = 1 / speed
         self._dps = self._steps_to_degrees(self._sps)
 
+    # Sets motor_pins to state described by tuple
+    def _set_pins(self, state):
+        for pin, st in zip(self._motor_pins, state):
+            GP.output(pin, st)
+
+    # Sets output to 0 for each motor pin
+    def relase_pins(self):
+        for pin in self._motor_pins:
+            GP.output(pin, 0)
+
+    # Unsets motor pins and saves position
+    def cleanup(self):
+        self.relase_pins()
+        for pin in self._motor_pins:
+            GP.cleanup(pin)
+
+        if self.pos_file:
+            with open(self.pos_file, "w") as rot:
+                rot.write(str(self._pos_absolute))
+
 
 # "28BYJ-48"
-class M_28BYJ_48(Motor):
+class M28BYJ48(Motor):
     _FULL_TURN = 512  # number of sequences needed for full turn
     _FULL_TURN_STEPS = 4096  # number of single half-steps for full turn
     _DEFAULT_SPS = 512  # default speed in steps per second
@@ -52,41 +107,13 @@ class M_28BYJ_48(Motor):
                 (0, 0, 0, 1),
                 (1, 0, 0, 1))
 
-    def __init__(self, motor_pins, pos_file=''):
-        # setting up pins
-        self._motor_pins = motor_pins
-        for pin in self._motor_pins:
-            gp.setup(pin, gp.OUT)
-            gp.output(pin, 0)
-
-        # initializing positions
-        self._pos_relative = 0
-        self._pos_angle_relative = 0
-        self._pos_absolute = 0
-        self._pos_angle_absolute = 0
-
-        # try to load absolute position
-        self.pos_file = pos_file
-        if pos_file:
-            try:
-                with open(pos_file, "r") as rot:
-                    self._pos_absolute = int(rot.read())
-                self._pos_angle_absolute = self._steps_to_degrees(self._pos_absolute)
-            except FileNotFoundError as e:
-                print(e)
-                motor.cleanup()
-                exit(1)
+    def __init__(self, mtr_pins, pos_file=''):
+        super().__init__(mtr_pins, pos_file)
 
         # loading speed
         self._delay = self._DEFAULT_DELAY
         self._sps = self._DEFAULT_SPS
         self._dps = self._DEFAULT_DPS
-
-        # diff counter for turning in angles
-        self._STEP_DIFF = 0
-
-    def __str__(self):
-        return f"Absolute position: {self._pos_angle_absolute} deg\nRelative position: {self._pos_angle_relative} deg"
 
     # Turns rotor by specified number of steps
     # Direction is determined by the sign of steps
@@ -144,11 +171,6 @@ class M_28BYJ_48(Motor):
         # proved otoceni
         self.turn_steps(steps + diff_steps)
 
-    # Sets motor_pins to state described by tuple
-    def _set_pins(self, state):
-        for pin, st in zip(self._motor_pins, state):
-            gp.output(pin, st)
-
     # Does one step in specified direction
     def step(self, direction):
         # update absolute positions
@@ -195,28 +217,11 @@ class M_28BYJ_48(Motor):
             print(f"Done, relative position:\n\t{self._pos_relative} steps\n\t{self._pos_angle_relative} deg")
 
 
-
-    # Sets output to 0 for each motor pin
-    def relase_pins(self):
-        for pin in self._motor_pins:
-            gp.output(pin, 0)
-
-    # Unsets motor pins and saves position
-    def cleanup(self):
-        self.relase_pins()
-        for pin in self._motor_pins:
-            gp.cleanup(pin)
-
-        if self.pos_file:
-            with open(self.pos_file, "w") as rot:
-                rot.write(str(self._pos_absolute))
-
-
 if __name__ == "__main__":
     motor_pins = [11, 13, 15, 16]
-    gp.setmode(gp.BOARD)
+    GP.setmode(GP.BOARD)
 
-    motor = M_28BYJ_48(motor_pins)
+    motor = M28BYJ48(motor_pins)
 
     if len(sys.argv) == 3:
         motor.set_speed_dps(int(sys.argv[2]))

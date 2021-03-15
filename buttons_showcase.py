@@ -3,7 +3,7 @@
 from sys import argv
 import RPi.GPIO as GP
 import time
-from motor import M_28BYJ_48 as MOTOR
+from motor import M28BYJ48 as MOTOR
 
 motor_pins = [11, 13, 15, 16]
 GP.setmode(GP.BOARD)
