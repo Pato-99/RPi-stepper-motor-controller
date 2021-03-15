@@ -14,12 +14,13 @@ Support for more motors and drivers will come in future...
 1. Place **motor.py** file in directory with script.
 2. At the start of the script insert
    ```python
-   from stepper.motors.M_28BYJ48 import M28BYJ48 as motor
+   from stepper import [motor you want] as motor
    ```
-   * motor classes currently available: **28BYJ_48**
+   * available motors: **28BYJ_48**
+   * more soon...
 
 
-### Interface of 28BYJ-48
+### Interface
 
 ```python
 __init__(self, motor_pins, pos_file='')

@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 import RPi.GPIO as GP
-from stepper.motors.M_28BYJ48 import M28BYJ48 as MOTOR
+from stepper import M28BYJ48 as MOTOR
 import time
 
 
@@ -53,9 +53,6 @@ def showcase(mtr):
         show_bounce(mtr)
 
     for i in range(2):
-        show_acceleration(mtr)
-
-    for i in range(2):
         show_acceleration2(mtr)
 
     for i in range(6):
@@ -65,27 +62,27 @@ def showcase(mtr):
 # old, do not use
 def showcase2(mtr):
     for i in range(2):
-        mtr.turn(1, 20, 50)
+        mtr.turn_angle(20, 50)
         # time.sleep(0.05)
-        mtr.turn(-1, 25, 60)
+        mtr.turn_angle(-25, 60)
         # time.sleep(0.05)
-        mtr.turn(1, 30, 80)
+        mtr.turn_angle(30, 80)
         # time.sleep(0.05)
-        mtr.turn(-1, 35, 90)
+        mtr.turn_angle(-35, 90)
         time.sleep(0.05)
-        mtr.turn(1, 20, 90)
+        mtr.turn_angle(20, 90)
         time.sleep(0.05)
-        mtr.turn(-1, 20, 90)
+        mtr.turn_angle(-20, 90)
         time.sleep(0.05)
 
     for i in range(2):
-        mtr.turn(1, 30, 80)
-        mtr.turn(-1, 25, 60)
-        mtr.turn(1, 30, 80)
-        mtr.turn(-1, 25, 60)
-        mtr.turn(1, 20, 50)
-        mtr.turn(-1, 20, 50)
-        mtr.turn(-1, 20, 50)
+        mtr.turn_angle(30, 80)
+        mtr.turn_angle(-25, 60)
+        mtr.turn_angle(30, 80)
+        mtr.turn_angle(-25, 60)
+        mtr.turn_angle(20, 50)
+        mtr.turn_angle(-20, 50)
+        mtr.turn_angle(-20, 50)
 
 
 if __name__ == "__main__":
@@ -95,6 +92,8 @@ if __name__ == "__main__":
 
     try:
         showcase(motor)
+        time.sleep(2)
+        showcase2(motor)
         motor.reset(verbose=True)
     except KeyboardInterrupt:
         motor.reset(dps=120)
