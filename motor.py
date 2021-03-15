@@ -25,7 +25,7 @@ class Motor:
                 (0, 0, 0, 1),
                 (1, 0, 0, 1))
 
-    def __init__(self, motor_pins, pos_file=None):
+    def __init__(self, motor_pins, pos_file=''):
         # setting up pins
         self.motor_pins = motor_pins
         for pin in self.motor_pins:
@@ -33,19 +33,23 @@ class Motor:
             gp.output(pin, 0)
 
 
-        # setting relative position to 0
+        # initializing positions
         self.pos_relative = 0
         self.pos_angle_relative = 0
+        self.pos_absolute = 0
+        self.pos_angle_absolute = 0
 
-        # loading position
+        # try to load absolute position
         self.pos_file = pos_file
-        try:
-            with open(pos_file, "r") as rot:
-                self.pos_absolute = int(rot.read())
-            self.pos_angle_absolute = self.steps_to_degrees(self.pos_absolute)
-        except FileNotFoundError:
-            self.pos_absolute = 0
-            self.pos_angle_absolute = 0
+        if pos_file:
+            try:
+                with open(pos_file, "r") as rot:
+                    self.pos_absolute = int(rot.read())
+                self.pos_angle_absolute = self.steps_to_degrees(self.pos_absolute)
+            except FileNotFoundError as e:
+                print(e)
+                exit(1)
+
 
         # loading speed
         self.delay = self.DEFAULT_DELAY
