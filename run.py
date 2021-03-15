@@ -53,5 +53,6 @@ try:
 
 
 except KeyboardInterrupt:
-    motor.set_speed_dps(90)
+    motor.reset(dps=90)
+    motor.cleanup()
     GP.cleanup([36, 38, 40])
