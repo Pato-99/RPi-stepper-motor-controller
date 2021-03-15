@@ -32,11 +32,13 @@ class Motor:
             gp.setup(pin, gp.OUT)
             gp.output(pin, 0)
 
+
         # setting relative position to 0
         self.pos_relative = 0
         self.pos_angle_relative = 0
 
         # loading position
+        self.pos_file = pos_file
         try:
             with open(pos_file, "r") as rot:
                 self.pos_absolute = int(rot.read())
@@ -173,7 +175,6 @@ class Motor:
         if vebrose and not absolute:
             print(f"Done, relative position:\n\t{self.pos_relative} steps\n\t{self.pos_angle_relative} deg")
 
-
     '''
     Sets current position as initial
     '''
@@ -219,8 +220,9 @@ class Motor:
         for pin in self.motor_pins:
             gp.cleanup(pin)
 
-        with open("rotation", "w") as rot:
-            rot.write(str(self.pos_absolute))
+        if self.pos_file:
+            with open(pos_file, "w") as rot:
+                rot.write(str(self.pos_absolute))
 
 
 if __name__ == "__main__":

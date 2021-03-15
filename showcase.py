@@ -31,7 +31,7 @@ def show_acceleration(motor):
 
 def show_acceleration2(motor):
     for i in range(10, 120):
-        motor.turn_angle(i / 10, i, vebrose=True)
+        motor.turn_angle(i / 10, i)
     for i in range(120, 10, -1):
         motor.turn_angle(i / 10, i)
 
