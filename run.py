@@ -53,6 +53,7 @@ try:
 
 
 except KeyboardInterrupt:
+    print("Keyboard interrupt --> resetting position and quitting")
     motor.reset(dps=90)
     motor.cleanup()
     GP.cleanup([36, 38, 40])
