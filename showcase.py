@@ -83,9 +83,9 @@ def showcase2(motor):
 if __name__ == "__main__":
     motor_pins = [11, 13, 15, 16]
     gp.setmode(gp.BOARD)
+    motor = Motor(motor_pins, "rotation")
 
     showcase(motor)
-    motor = Motor(motor_pins, "rotation")
     motor.reset(vebrose=True)
     motor.cleanup()
 
