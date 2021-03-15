@@ -12,9 +12,9 @@ Support for more motors and drivers will come in future...
 ### Usage
 
 1. Place **motor.py** file in directory with script.
-2. At the start of the script insert 
+2. At the start of the script insert
    ```python
-   from M_28BYJ48 import M28BYJ48 as motor
+   from stepper.motors.M_28BYJ48 import M28BYJ48 as motor
    ```
    * motor classes currently available: **28BYJ_48**
 
