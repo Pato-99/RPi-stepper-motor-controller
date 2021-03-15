@@ -37,13 +37,13 @@ class Motor:
         self.pos_angle_relative = 0
 
         # loading position
-        if not pos_file:
-            self.pos_absolute = 0
-            self.pos_angle_absolute = 0
-        else:
+        try:
             with open(pos_file, "r") as rot:
                 self.pos_absolute = int(rot.read())
             self.pos_angle_absolute = self.steps_to_degrees(self.pos_absolute)
+        except FileNotFoundError:
+            self.pos_absolute = 0
+            self.pos_angle_absolute = 0
 
         # loading speed
         self.delay = self.DEFAULT_DELAY
