@@ -221,7 +221,7 @@ class Motor:
             gp.cleanup(pin)
 
         if self.pos_file:
-            with open(pos_file, "w") as rot:
+            with open(self.pos_file, "w") as rot:
                 rot.write(str(self.pos_absolute))
 
 
@@ -237,5 +237,4 @@ if __name__ == "__main__":
     else:
         motor.cleanup()
         exit(1)
-
-    gp.cleanup()
+    motor.cleanup()
