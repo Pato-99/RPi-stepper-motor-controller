@@ -6,8 +6,35 @@ import numpy as np
 import sys
 
 
+class Motor:
+    # Sets current position as initial
+    def set_default_position(self):
+        self._pos_absolute = 0
+        self._pos_angle_absolute = 0
+        self._pos_relative = 0
+        self._pos_angle_relative = 0
+
+    @staticmethod
+    def _degrees_to_steps(deg):
+        return deg / 360 * 4096
+
+    @staticmethod
+    def _steps_to_degrees(steps):
+        return steps / 4096 * 360
+
+    def set_speed_dps(self, speed):
+        self._dps = speed
+        self._delay = 1 / self._degrees_to_steps(speed)
+        self._sps = 1 / self._delay
+
+    def set_speed_sps(self, speed):
+        self._sps = speed
+        self._delay = 1 / speed
+        self._dps = self._steps_to_degrees(self._sps)
+
+
 # "28BYJ-48"
-class M_28BYJ_48:
+class M_28BYJ_48(Motor):
     _FULL_TURN = 512  # number of sequences needed for full turn
     _FULL_TURN_STEPS = 4096  # number of single half-steps for full turn
     _DEFAULT_SPS = 512  # default speed in steps per second
@@ -167,30 +194,7 @@ class M_28BYJ_48:
         if vebrose and not absolute:
             print(f"Done, relative position:\n\t{self._pos_relative} steps\n\t{self._pos_angle_relative} deg")
 
-    # Sets current position as initial
-    def set_default_position(self):
-        self._pos_absolute = 0
-        self._pos_angle_absolute = 0
-        self._pos_relative = 0
-        self._pos_angle_relative = 0
 
-    @staticmethod
-    def _degrees_to_steps(deg):
-        return deg / 360 * 4096
-
-    @staticmethod
-    def _steps_to_degrees(steps):
-        return steps / 4096 * 360
-
-    def set_speed_dps(self, speed):
-        self._dps = speed
-        self._delay = 1 / self._degrees_to_steps(speed)
-        self._sps = 1 / self._delay
-
-    def set_speed_sps(self, speed):
-        self._sps = speed
-        self._delay = 1 / speed
-        self._dps = self._steps_to_degrees(self._sps)
 
     # Sets output to 0 for each motor pin
     def relase_pins(self):

@@ -12,7 +12,7 @@ def show_basic(mtr):
 
 def show_stopping(mtr):
     for i in range(6):
-        mtr.turn_angle(30, vebrose=True)
+        mtr.turn_angle(30)
         time.sleep(0.5)
 
 
@@ -62,7 +62,7 @@ def showcase(mtr):
         show_backing(mtr)
 
 
-# deprecated
+# old, do not use
 def showcase2(mtr):
     for i in range(2):
         mtr.turn(1, 20, 50)
