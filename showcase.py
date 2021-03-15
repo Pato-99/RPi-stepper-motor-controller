@@ -8,8 +8,7 @@ def show_basic(motor):
 
 def show_stopping(motor):
     for i in range(6):
-        motor.turn_angle(30)
-        print(motor)
+        motor.turn_angle(30, vebrose=True)
         time.sleep(0.5)
 
 def show_bounce(motor):

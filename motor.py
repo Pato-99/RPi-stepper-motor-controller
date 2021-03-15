@@ -80,8 +80,10 @@ class Motor:
     If speed is not specified then instance speed is used.
     '''
 
-    def turn_angle(self, angle, speed=0):
-        direction = 1 if angle > 0 else -1
+    def turn_angle(self, angle, speed=0, vebrose=False):
+        if vebrose:
+            print(f"Turning {angle} deg from relative position {self.pos_angle_relative} deg")
+
         if speed > 0:
             self.set_speed_dps(speed)
 
