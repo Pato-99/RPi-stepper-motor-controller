@@ -84,7 +84,8 @@ if __name__ == "__main__":
     motor_pins = [11, 13, 15, 16]
     gp.setmode(gp.BOARD)
 
+    showcase(motor)
     motor = Motor(motor_pins, "rotation")
-    motor.reset(absolute=True, vebrose=True)
+    motor.reset(vebrose=True)
     motor.cleanup()
 
