@@ -82,7 +82,7 @@ class Motor:
 
     def turn_angle(self, angle, speed=0, vebrose=False):
         if vebrose:
-            print(f"Turning {angle} deg from relative position {self.pos_angle_relative} deg")
+            print(f"Turning {angle} deg. Current position {self.pos_angle_relative} deg")
 
         if speed > 0:
             self.set_speed_dps(speed)
