@@ -38,14 +38,14 @@ Support for more motors and drivers will come in future...
   
 * `step(self, direction)`
   
-  **Performs one step in desired direction**
+  Performs one step in desired direction
 
   * direction - > 0 or < 0
 
 
 * `reset(self, sps=0, dps=0, absolute=False, vebrose=False)`
   
-  **Moves to initial position**
+  Moves to initial position
 
   * sps - speed in steps/second
 
@@ -58,31 +58,31 @@ Support for more motors and drivers will come in future...
 
 * `set_default_position(self)`
   
-  **Sets current position as default**
+  Sets current position as default
   
 
 * `set_speed_sps(self, speed)`
   
-  **Sets default speed**
+  Sets default speed
 
   * speed - desired speed in steps/second
 
 
 * `set_speed_dps(self, speed)`
   
-  **Sets default speed**
+  Sets default speed
 
   * speed - desired speed in degrees/second
     
 
 * `release_pins(self)`
 
-  **Sets motor pins to low/0 to save power and prevent heating while left untouched for long time**
+  Sets motor pins to low/0 to save power and prevent heating while left untouched for long time
   
 
 * `cleanup(self)`
 
-  **Saves absolute position to file if some was specified and clears the pins**
+  Saves absolute position to file if some was specified and clears the pins
 
   * Use at the end of the script or when you do not plan to use the motor again
     
