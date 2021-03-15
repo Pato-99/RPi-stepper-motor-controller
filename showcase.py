@@ -88,7 +88,7 @@ if __name__ == "__main__":
         showcase(motor)
         motor.reset(vebrose=True)
     except KeyboardInterrupt:
-        motor.reset()
+        motor.reset(120)
         motor.cleanup()
         exit(1)
 

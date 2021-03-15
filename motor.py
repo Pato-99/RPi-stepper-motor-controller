@@ -155,11 +155,16 @@ class Motor:
     Relative or absolute
     '''
 
-    def reset(self, absolute=False, vebrose=False):
+    def reset(self, sps=0, dps=0, absolute=False, vebrose=False):
         if vebrose and absolute:
             print(f"Resetting to absolute 0 from:\n\t{self.pos_absolute} steps\n\t{self.pos_angle_absolute} deg")
         if vebrose and not absolute:
             print(f"Resetting to relative 0 from:\n\t{self.pos_relative} steps\n\t{self.pos_angle_relative} deg")
+
+        if dps > 0:
+            self.set_speed_dps(dps)
+        if sps > 0:
+            self.set_speed_sps(sps)
 
         if not absolute:
             direction = -1 if self.pos_relative < self.FULL_TURN_STEPS / 2 else 1
