@@ -1,90 +1,104 @@
 #!/usr/bin/python3
 
-from motor import *
+import RPi.GPIO as GP
+from M_28BYJ48 import M28BYJ48 as MOTOR
+import time
 
-def show_basic(motor):
-    motor.turn_angle(180)
-    motor.turn_angle(-180)
 
-def show_stopping(motor):
+def show_basic(mtr):
+    mtr.turn_angle(180)
+    mtr.turn_angle(-180)
+
+
+def show_stopping(mtr):
     for i in range(6):
-        motor.turn_angle(30)
-        print(motor)
+        mtr.turn_angle(30)
         time.sleep(0.5)
 
-def show_bounce(motor):
+
+def show_bounce(mtr):
     for i in range(5, 12):
-        motor.turn_angle(3 * i, i * 10)
+        mtr.turn_angle(3 * i, i * 10)
     for i in range(11, 5, -1):
-        motor.turn_angle(-3 * i, i * 10)
+        mtr.turn_angle(-3 * i, i * 10)
 
-def show_backing(motor):
-    motor.set_speed_dps(60)
-    motor.turn_angle(-60)
-    motor.set_speed_dps(80)
-    motor.turn_angle(20)
 
-def show_acceleration(motor):
+def show_backing(mtr):
+    mtr.set_speed_dps(60)
+    mtr.turn_angle(-60)
+    mtr.set_speed_dps(80)
+    mtr.turn_angle(20)
+
+
+def show_acceleration(mtr):
     for i in range(4, 12):
-        motor.turn_angle(3 * i, i * 10)
+        mtr.turn_angle(3 * i, i * 10)
     for i in range(11, 4, -1):
-        motor.turn_angle(3 * i, i * 10)
+        mtr.turn_angle(3 * i, i * 10)
 
-def show_acceleration2(motor):
+
+def show_acceleration2(mtr):
     for i in range(10, 120):
-        motor.turn_angle(i / 10, i)
+        mtr.turn_angle(i / 10, i)
     for i in range(120, 10, -1):
-        motor.turn_angle(i / 10, i)
+        mtr.turn_angle(i / 10, i)
 
-def showcase(motor):
-    show_basic(motor)
 
-    show_stopping(motor)
+def showcase(mtr):
+    show_basic(mtr)
 
-    for i in range(2):
-        show_bounce(motor)
+    show_stopping(mtr)
 
     for i in range(2):
-        show_acceleration(motor)
+        show_bounce(mtr)
 
     for i in range(2):
-        show_acceleration2(motor)
+        show_acceleration(mtr)
+
+    for i in range(2):
+        show_acceleration2(mtr)
 
     for i in range(6):
-        show_backing(motor)
+        show_backing(mtr)
 
 
-# deprecated
-def showcase2(motor):
+# old, do not use
+def showcase2(mtr):
     for i in range(2):
-        motor.turn(1, 20, 50)
+        mtr.turn(1, 20, 50)
         # time.sleep(0.05)
-        motor.turn(-1, 25, 60)
+        mtr.turn(-1, 25, 60)
         # time.sleep(0.05)
-        motor.turn(1, 30, 80)
+        mtr.turn(1, 30, 80)
         # time.sleep(0.05)
-        motor.turn(-1, 35, 90)
+        mtr.turn(-1, 35, 90)
         time.sleep(0.05)
-        motor.turn(1, 20, 90)
+        mtr.turn(1, 20, 90)
         time.sleep(0.05)
-        motor.turn(-1, 20, 90)
+        mtr.turn(-1, 20, 90)
         time.sleep(0.05)
 
     for i in range(2):
-        motor.turn(1, 30, 80)
-        motor.turn(-1, 25, 60)
-        motor.turn(1, 30, 80)
-        motor.turn(-1, 25, 60)
-        motor.turn(1, 20, 50)
-        motor.turn(-1, 20, 50)
-        motor.turn(-1, 20, 50)
+        mtr.turn(1, 30, 80)
+        mtr.turn(-1, 25, 60)
+        mtr.turn(1, 30, 80)
+        mtr.turn(-1, 25, 60)
+        mtr.turn(1, 20, 50)
+        mtr.turn(-1, 20, 50)
+        mtr.turn(-1, 20, 50)
 
 
 if __name__ == "__main__":
     motor_pins = [11, 13, 15, 16]
-    gp.setmode(gp.BOARD)
+    GP.setmode(GP.BOARD)
+    motor = MOTOR(motor_pins)
 
-    motor = Motor(motor_pins, "rotation")
-    motor.reset(absolute=True, vebrose=True)
+    try:
+        showcase(motor)
+        motor.reset(verbose=True)
+    except KeyboardInterrupt:
+        motor.reset(dps=120)
+        motor.cleanup()
+        exit(1)
+
     motor.cleanup()
-
