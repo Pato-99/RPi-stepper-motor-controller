@@ -48,6 +48,7 @@ class Motor:
                 self.pos_angle_absolute = self.steps_to_degrees(self.pos_absolute)
             except FileNotFoundError as e:
                 print(e)
+                motor.cleanup()
                 exit(1)
 
 
