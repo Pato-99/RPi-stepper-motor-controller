@@ -6,7 +6,7 @@ Support for more motors and drivers will come in future...
 
 ### Contents
 * [Usage](#usage)
-* [Interface of 28BYJ-48](#interface-of-28byj-48)
+* [Interface](#interface-of-28byj-48)
 * [Plans for future](#plans-for-future)
 
 ### Usage
