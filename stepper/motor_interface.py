@@ -191,3 +191,6 @@ class Motor:
 
     def _steps_to_degrees(self, steps):
         return steps / self._FULL_TURN_STEPS * 360
+
+    def get_angle(self):
+        return str(self._pos_angle_relative)
