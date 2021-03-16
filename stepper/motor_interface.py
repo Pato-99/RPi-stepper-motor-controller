@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 import RPi.GPIO as GP
 import numpy as np
 import time
