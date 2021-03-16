@@ -2,16 +2,16 @@
 
 Designed for motor [**28BYJ-48** with **ULN2003**](https://rpishop.cz/motory-serva-a-cerpadla/1469-krokovy-motor-28byj-48-ridici-jednotka-sada.html)
 
-Support for more motors and drivers will come in future...
+Support for more motors and drivers will come in the future...
 
 ### Contents
 * [Usage](#usage)
-* [Interface](#interface-of-28byj-48)
+* [Interface](#interface)
 * [Plans for future](#plans-for-future)
 
 ### Usage
 
-1. Place **motor.py** file in directory with script.
+1. Place **motor.py** file in a directory with script.
 2. At the start of the script insert
    ```python
    from stepper import [motor you want] as motor
@@ -29,7 +29,7 @@ __init__(self, motor_pins, pos_file='')
   
 * pos_file - file where absolute position of motor is stored, so it can reload after each script run.
              Default '' means that the position will not be stored.
-             If you enter name of file that does not exist, it will create one.
+             If you enter a name of file that does not exist, it will create one.
   
 
 
@@ -63,7 +63,7 @@ Performs one step in desired direction
 
 
 ```python
-reset(self, sps=0, dps=0, absolute=False, vebrose=False)
+reset(self, sps=0, dps=0, absolute=False, verbose=False)
 ``` 
 Moves to initial position
 
@@ -73,7 +73,7 @@ Moves to initial position
 
 * absolute - if True it will move to absolute zero otherwise to relative zero
  
-* vebrose - if True it will print to command prompt
+* verbose - if True it will print to command prompt
 
 
 ```python
