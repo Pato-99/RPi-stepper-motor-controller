@@ -1,8 +1,8 @@
 ## Python module for controlling stepper motors with Raspberry Pi
 
-Designed for motor [**28BYJ-48** with **ULN2003**](https://rpishop.cz/motory-serva-a-cerpadla/1469-krokovy-motor-28byj-48-ridici-jednotka-sada.html)
+Designed and tested with motor [**28BYJ-48** with **ULN2003** driver](https://rpishop.cz/motory-serva-a-cerpadla/1469-krokovy-motor-28byj-48-ridici-jednotka-sada.html)
 
-Support for more motors and drivers will come in the future...
+Can be tweaked to work with any stepper
 
 ### Contents
 * [Usage](#usage)
@@ -121,5 +121,4 @@ Saves absolute position to file if some was specified and clears the pins
 
 ### Notes
 
-Rotation speed is always a bit lower than specified probably due to processor speed.
-It can vary on different RPi versions.
+Rotation speed is always a bit lower than specified probably due to python is an interpreted language. Using cython or doing calculations using numpy may speed it up but in my humble opinion, it will never be as fast as if it was implemented in C.
