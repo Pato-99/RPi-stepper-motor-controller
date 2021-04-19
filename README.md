@@ -11,7 +11,7 @@ Can be tweaked to work with any stepper
 
 ### Usage
 
-1. Place **motor.py** file in a directory with script.
+1. Place **stepper** folder in a directory with your script.
 2. At the start of the script insert
    ```python
    from stepper import [motor you want] as motor
